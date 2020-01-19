@@ -1,30 +1,22 @@
 
 const prompt = require('prompt');
 
-function request_prompt (callback, showMethod, leaderboard) {
+function request_prompt (callbackApi, showMethod, leaderboard) {
 
     prompt.start() 
-  // Get property from the user: keyboard
+  // Get value from the user: keyboard
     prompt.get(['keyboard'], function (err, result) {
         // Log the results.
-        console.log('Input received:');
-        console.log(' keyboard: ' + result.keyboard);
+        console.log('Input received');
 
-        let words = result.keyboard.split(" ")
-
-        if (words.length === 1) {
-            console.log(words[0])
-            callback(words[0], showMethod)
-        } else if (words[1] === 'leaderboard') {
+        word = result.keyboard
+        // Evaluate the word to know how to proceed: call leaderboard or the API.
+        if (word === 'leaderboard') {
             leaderboard()
         } else {
-            callback(words[0], showMethod)
+            callbackApi(word, showMethod)
         }
-
-        //Send input to a function
-       
     });
-
 }
 
 module.exports = request_prompt
